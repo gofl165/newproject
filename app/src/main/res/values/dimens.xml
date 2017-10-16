@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="represent">20dp</dimen>
+    <dimen name="img">7dp</dimen>
+    <dimen name="menu">18dp</dimen>
+    <dimen name="time">15dp</dimen>
+
+
+
+</resources>

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">newproject</string>
+    <string name="app_name">project</string>
+    <string name="namnam">강북구 제일맛집 BHC</string>
+    <string name="location">서울 강북구 오패산로 383</string>
+    <string name="phonenumber">02-908-8005</string>
+    <string name="whattime">14:00 - 02:00</string>
+    <string name="menulist">Chicken Menu</string>
+    <string name="action_menu_detail"></string>
 </resources>
