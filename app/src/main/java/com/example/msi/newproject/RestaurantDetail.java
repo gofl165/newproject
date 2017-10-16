@@ -31,7 +31,28 @@ public class RestaurantDetail extends AppCompatActivity {
         //어댑터 연결
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        //아래메뉴 누르면 MenuDetail으로 Activity convert
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View vClicked,
+                                    int position, long id) {
 
+
+                Intent intent = new Intent(getApplicationContext(), MenuDetail.class);
+                startActivity(intent);
+
+            }
+        });
+        //통화버튼누르면 Dail 연결
+        ImageButton btn = (ImageButton) findViewById(R.id.dial);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent implicit_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:02-908-8005"));
+                startActivity(implicit_intent);
+            }
+
+
+        });
 
 
     }
