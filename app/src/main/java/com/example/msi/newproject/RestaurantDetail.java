@@ -68,43 +68,8 @@ public class RestaurantDetail extends AppCompatActivity {
 
 
         });
-
-                Intent intent = new Intent(getApplicationContext(), MenuDetail.class);
-                startActivity(intent);
-
-            }
+        
 
 
-
-        ImageButton btn = (ImageButton) findViewById(R.id.dial);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent implicit_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:02-908-8005"));
-                startActivity(implicit_intent);
-            }
-
-
-
-
-
-                Intent intent = new Intent(getApplicationContext(), MenuDetail.class);
-                startActivity(intent);
-
-            }
-
-        //통화버튼누르면 Dail 연결
-        ImageButton btn = (ImageButton) findViewById(R.id.dial);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent implicit_intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:02-908-8005"));
-                startActivity(implicit_intent);
-            }
-
-
-        });
-
-
-    }
+        }
 }
