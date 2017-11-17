@@ -22,7 +22,6 @@ public class RestaurantDetail extends AppCompatActivity {
         // 데이터 원본 준비
 
 
-
         data.add(new MyItem(R.drawable.sweet, "스윗츄~", "17000"));
         data.add(new MyItem(R.drawable.boom, "붐바스틱", "18000"));
         data.add(new MyItem(R.drawable.bring, "뿌링클", "17000"));
