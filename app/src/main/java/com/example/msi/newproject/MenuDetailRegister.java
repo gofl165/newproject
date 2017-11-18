@@ -48,6 +48,48 @@ public class MenuDetailRegister extends AppCompatActivity {
             }
         });
     }
+
+    String mPhotoFileName;
+    File mPhotoFile;
+    static final int REQUEST_IMAGE_CAPTURE2 = 2;
+    private String currentDateFormat(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
+        String  currentTimeStamp = dateFormat.format(new Date());
+        return currentTimeStamp;
+    }
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            //1. 카메라 앱으로 찍은 이미지를 저장할 파일 객체 생성
+            mPhotoFileName = "IMG"+currentDateFormat()+".jpg";
+            mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName);
+
+            if (mPhotoFile !=null) {
+                //2. 생성된 파일 객체에 대한 Uri 객체를 얻기
+                Uri imageUri = FileProvider.getUriForFile(this, "com.example.msi.newproject", mPhotoFile);
+                //authority에 패키지이름 고쳐주기
+                //3. Uri 객체를 Extras를 통해 카메라 앱으로 전달
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE2);
+            } else
+                Toast.makeText(getApplicationContext(), "file null", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == REQUEST_IMAGE_CAPTURE2 && resultCode == RESULT_OK) {
+            if (mPhotoFileName != null) {
+                mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName);
+                ImageButton imageCaptureBtn = (ImageButton)findViewById(R.id.menuimg);
+
+                imageCaptureBtn.setImageURI(Uri.fromFile(mPhotoFile));
+
+            }
+        }
+
+    }
 //***********************************
 
 
