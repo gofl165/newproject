@@ -21,14 +21,8 @@ import java.util.Date;
 
 public class MenuRegister extends AppCompatActivity {
 
-//    private DBHelper mDbHelper;
+private DBHelper mDbHelper;
     public static final String PREFERENCES_1 = "info";
-
-    public static final String PREFERENCES_ATTR1 = "name";
-    public static final String PREFERENCES_ATTR2 = "t1";
-    public static final String PREFERENCES_ATTR3 = "t2";
-    public static final String PREFERENCES_IMG = "img";
-    SharedPreferences setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,41 +40,9 @@ public class MenuRegister extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                EditText main=(EditText) findViewById(R.id.name);
-                ImageView img=(ImageView)findViewById(R.id.imageCaptureBtn);
-                EditText t1=(EditText) findViewById(R.id.address);
-                EditText t2=(EditText) findViewById(R.id.phone);
-
-                setting = getSharedPreferences(PREFERENCES_1, MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = setting.edit();
-
-                String name = main.getText().toString();
-                editor.putString(PREFERENCES_ATTR1, name);
-
-
-                String a = t1.getText().toString();
-                editor.putString(PREFERENCES_ATTR2, a);
-
-
-                String b = t2.getText().toString();
-                editor.putString(PREFERENCES_ATTR3, b);
-//               img bit로 바꿔서 저장하려다 포기
-//                Bitmap bit;
-//                ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-//                bit.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-//                byte[] imageBytes=byteArrayOutputStream.toByteArray();
-//                Base64.encodeToString(imageBytes,Base64.NO_WRAP);
-
-                String c =mPhotoFileName;
-                editor.putString(PREFERENCES_IMG,c);
-
-                editor.commit();
-
-
+                insertRecord();
         Intent intent =new Intent(getApplicationContext(),RestaurantDetail.class);
+                intent.putExtra("int",(int)nOfRows);
         startActivity(intent);
             }
         });
@@ -89,7 +51,7 @@ public class MenuRegister extends AppCompatActivity {
 
 
 
-//        mDbHelper = new DBHelper(this);
+ mDbHelper = new DBHelper(this);
 
     }
 
@@ -134,19 +96,22 @@ public class MenuRegister extends AppCompatActivity {
         }
 
     }
-//                        아래 database 관련 나중에 쓸것같아서 일단 주석처리
-//    private void insertRecord() {
-//        EditText name = (EditText)findViewById(R.id.name);
-//        EditText address = (EditText)findViewById(R.id.address);
-//        EditText phone = (EditText)findViewById(R.id.phone);
-//        long nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),address.getText().toString(),phone.getText().toString());
-//        if (nOfRows >0)
-//            Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
-//        else
-//            Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
-//    }
 
+    long nOfRows;
+    private void insertRecord() {
+        EditText name = (EditText)findViewById(R.id.name);
+        EditText address = (EditText)findViewById(R.id.address);
+        EditText phone = (EditText)findViewById(R.id.phone);
 
+        nOfRows = mDbHelper.insertUserByMethod(name.getText().toString(),address.getText().toString(),phone.getText().toString(),mPhotoFileName);
 
+        if (nOfRows >0)
+            Toast.makeText(this,nOfRows+" Record Inserted", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"No Record Inserted", Toast.LENGTH_SHORT).show();
+    }
 
 }
+
+
+
