@@ -19,11 +19,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG,getClass().getName()+".onCreate()");
         db.execSQL(UserContract.Users.CREATE_TABLE);
+        db.execSQL(UserContract.Users.CREATE_TABLE2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         Log.i(TAG,getClass().getName() +".onUpgrade()");
+        db.execSQL(UserContract.Users.DELETE_TABLE);
         db.execSQL(UserContract.Users.DELETE_TABLE);
         onCreate(db);
     }
@@ -86,12 +88,24 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(UserContract.Users.KEY_IMGNAME,img);
         return db.insert(UserContract.Users.TABLE_NAME,null,values);
     }
+    public long insertUserByMethod2(String name,String price, String detail,String img) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(UserContract.Users.KEY_NAME, name);
+        values.put(UserContract.Users.KEY_PRICE, price);
+        values.put(UserContract.Users.KEY_DETAIL,detail);
+        values.put(UserContract.Users.KEY_IMGNAME,img);
+        return db.insert(UserContract.Users.TABLE_NAME2,null,values);
+    }
 
     public Cursor getAllUsersByMethod() {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(UserContract.Users.TABLE_NAME,null,null,null,null,null,null);
     }
-
+    public Cursor getAllUsersByMethod2() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query(UserContract.Users.TABLE_NAME2,null,null,null,null,null,null);
+    }
     public long deleteUserByMethod(String _id) {
         SQLiteDatabase db = getWritableDatabase();
 

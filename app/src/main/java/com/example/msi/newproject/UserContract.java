@@ -15,9 +15,12 @@ public final class UserContract {
     /* Inner class that defines the table contents */
     public static class Users implements BaseColumns {
         public static final String TABLE_NAME="News";
+        public static final String TABLE_NAME2="News2";
         public static final String KEY_NAME = "Name";
         public static final String KEY_ADDRESS="Address";
         public static final String KEY_PHONE = "Phone";
+        public static final String KEY_PRICE = "Price";
+        public static final String KEY_DETAIL = "Detail";
         public static final String KEY_IMGNAME="Imgname";
 
         public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
@@ -26,8 +29,13 @@ public final class UserContract {
                 KEY_ADDRESS + TEXT_TYPE + COMMA_SEP +
                 KEY_PHONE + TEXT_TYPE +COMMA_SEP +
                 KEY_IMGNAME + TEXT_TYPE +" )";
-//        public static final String CREATE_TABLE ="CREATE TABLE Users "+ " (" +
-//                _ID + " INTEGER PRIMARY KEY"+", Name TEXT Address TEXT  Imgname TEXT)";
+
+        public static final String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME2 + " (" +
+                _ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
+                KEY_NAME + TEXT_TYPE + COMMA_SEP +
+                KEY_PRICE + TEXT_TYPE + COMMA_SEP +
+                KEY_DETAIL + TEXT_TYPE +COMMA_SEP +
+                KEY_IMGNAME + TEXT_TYPE +" )";
 
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     }

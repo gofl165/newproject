@@ -93,10 +93,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="@dimen/menu"
-        android:textColor="@color/menu"
         android:background="@android:color/holo_red_light"
-        android:text="chicken menu" />
+        android:text="menu"
+        android:textColor="@color/menu"
+        android:textSize="@dimen/menu" />
 
     <ListView
         android:id="@+id/listView"
