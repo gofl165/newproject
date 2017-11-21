@@ -56,9 +56,7 @@ public class MyAdapter extends BaseAdapter {
 
         // Set Icon
         ImageView icon = (ImageView) convertView.findViewById(R.id.imageView);
-//        File mPhotoFile =mItems.get(position).npath;
-//        File f=new File(mPhotoFile,mItems.get(position).mIcon);
-//        icon.setImageURI(Uri.fromFile(f));
+
         Log.i("logloglog",mItems.get(position).mIcon);
 File F=new File("storage/emulated/0/Android/data/com.example.msi.newproject/files/Pictures",mItems.get(position).mIcon);
 icon.setImageURI(Uri.fromFile(F));

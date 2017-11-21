@@ -68,22 +68,11 @@ public class RestaurantDetail extends AppCompatActivity implements FrgRestaurant
             while(cursor3.moveToNext()){
 
                 txt3=cursor3.getString(4);
-//               File mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG220171120_13_17_59.jpg");
-//                File mPhotoFile = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//                File ff= new File(mPhotoFile,txt3);
-//                img2.setImageURI(Uri.fromFile(ff));
-//                img2=(ImageView)findViewById(R.id.imageView) ;
-////                Uri uri = Uri.parse("file:///storage/emulated/0/Pictures/IMG220171120_13_17_59.jpg");
-//                img2.setImageURI(Uri.fromFile(f));
-
 
                 data.add(new MyItem(txt3, cursor3.getString(1), cursor3.getString(2)));
             }
             cursor3.close();
 
-//        data.add(new MyItem(R.drawable.boom, "붐바스틱", "18000"));
-//        data.add(new MyItem(R.drawable.bring, "뿌링클", "17000"));
-//        data.add(new MyItem(R.drawable.matco, "맛초킹", "17000"));
         //어댑터 생성
         adapter3 = new MyAdapter(this, R.layout.item, data);
 
@@ -128,40 +117,11 @@ public class RestaurantDetail extends AppCompatActivity implements FrgRestaurant
         t1.setText(((Cursor) adapter.getItem(num - 1)).getString(2));
         t2.setText(((Cursor) adapter.getItem(num - 1)).getString(3));
 //        *********************************************************************
-//*********
-//        txt1=((Cursor) adapter2.getItem(superint)).getString(1);
-//        txt2=((Cursor) adapter2.getItem(superint)).getString(2);
-//        txt3=((Cursor) adapter2.getItem(superint)).getString(4);
-
-//        m1.setText(((Cursor) adapter2.getItem(superint-1)).getString(1));
-//        m2.setText(((Cursor) adapter2.getItem(superint-1)).getString(2));
-//        img2.setText(((Cursor) adapter2.getItem(superint-1)).getString(4));
-//
-
-
-//            for(int i=0;i<(adapter2.getCount());i++) {
-//
-//                String mPhotoFileName2 = ((Cursor) adapter.getItem(i)).getString(4);
-//                File mPhotoFile2 = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName2);
-//                img2.setImageURI(Uri.fromFile(mPhotoFile2));
-//
-//            }
-
 
 
         ListView lv = (ListView)findViewById(R.id.listView);
 
-//        CustomAdapter ad=new CustomAdapter(getApplicationContext(),
-//                R.layout.item, cursor2, new String[]{
-//
-//                UserContract.Users.KEY_NAME,
-//                UserContract.Users.KEY_PRICE,
-//                UserContract.Users.KEY_DETAIL,
-//                UserContract.Users.KEY_IMGNAME
-//        },
-//                new int[]{R.id.text1, R.id.text2,0,R.id.imageView}, 0);
-
-//        lv.setAdapter(adapter2);
+//              lv.setAdapter(adapter2);
                 lv.setAdapter(adapter3);
 //아래메뉴 누르면 MenuDetail으로 Activity convert
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -246,6 +206,7 @@ public class RestaurantDetail extends AppCompatActivity implements FrgRestaurant
 
     }
 ////    **********************************************보류******************************
+    //혹시몰라 남겨놓음
 //    //https://www.androidpub.com/1583212 랑 customAdapterView강의자료참고  (사진안나와서 Custom SimpleCursorAdapter찾아봄)
 //    class CustomAdapter extends SimpleCursorAdapter {
 //        private Cursor cur;

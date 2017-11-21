@@ -44,6 +44,7 @@ public class FrgMenuDetail extends Fragment {
 
         detail.setText(d);
         if (index >=0) {
+            //http://jizard.tistory.com/66     참조(Bundle쓰는법)
             String t1=getArguments().getString("menu2");
             String t2=getArguments().getString("price2");
             String t3=getArguments().getString("detail2");

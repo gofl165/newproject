@@ -4,6 +4,7 @@ package com.example.msi.newproject;
 import android.provider.BaseColumns;
 
 public final class UserContract {
+    //강의자료 참고
     public static final String DB_NAME="newuser.db";
     public static final int DATABASE_VERSION = 1;
     private static final String TEXT_TYPE = " TEXT";

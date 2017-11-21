@@ -91,14 +91,7 @@ public class MenuDetailRegister extends AppCompatActivity {
         }
 
     }
-//***********************************
 
-
-
-
-
-
-//    ******************************
     long nOfRows;
     private void insertRecord() {
         EditText name = (EditText)findViewById(R.id.mname);
