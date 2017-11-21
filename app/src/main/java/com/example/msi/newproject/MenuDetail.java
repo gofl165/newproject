@@ -26,7 +26,16 @@ public class MenuDetail extends AppCompatActivity {
 
         Intent intent = getIntent(); // 보내온 Intent를 얻는다
 
-
+        FrgMenuDetail details = new FrgMenuDetail();
+        details.setSelection(getIntent().getIntExtra("index",-1));
+        details.add(intent.getStringExtra("menu"),intent.getStringExtra("price"),
+                intent.getStringExtra("img"),intent.getStringExtra("detail"));
+        getSupportFragmentManager().beginTransaction().replace(R.id.details, details).commit();
+        if (getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
 
 
     }
