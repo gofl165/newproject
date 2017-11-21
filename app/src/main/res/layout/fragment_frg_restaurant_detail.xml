@@ -7,6 +7,98 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/bhc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:background="@android:color/holo_orange_light"
+        android:gravity="center"
+
+        android:text="@string/namnam"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/represent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:padding="@dimen/img"
+        android:background="@android:color/holo_green_light"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:padding="@dimen/img"
+            android:layout_weight="1"
+            android:src="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/location" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/phonenumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/phonenumber" />
+
+                <ImageButton
+                    android:id="@+id/dial"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_call_black_24dp"
+
+                    android:layout_height="wrap_content"
+                    android:text="dial" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/whattime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/time"
+                android:text="@string/whattime" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/menulist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/holo_red_light"
+        android:text="menu"
+        android:textColor="@color/menu"
+        android:textSize="@dimen/menu" />
+
 
     <ListView
         android:id="@+id/listView"
