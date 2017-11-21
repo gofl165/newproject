@@ -1,6 +1,7 @@
 package com.example.msi.newproject;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -62,7 +63,7 @@ public class MenuDetailRegister extends AppCompatActivity {
 
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             //1. 카메라 앱으로 찍은 이미지를 저장할 파일 객체 생성
-            mPhotoFileName = "IMG"+currentDateFormat()+".jpg";
+            mPhotoFileName = "IMG2"+currentDateFormat()+".jpg";
             mPhotoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), mPhotoFileName);
 
             if (mPhotoFile !=null) {

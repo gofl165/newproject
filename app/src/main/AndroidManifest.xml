@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.msi.newproject">
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,13 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- <activity -->
-        <!-- android:name=".MenuDetail" -->
-        <!-- android:label="menudetail" -->
-        <!-- android:parentActivityName=".RestaurantDetail" /> -->
-        <!-- <activity android:name=".MenuRegister"></activity> -->
+         <activity
+         android:name=".MenuDetail"
+         android:label="menudetail"
+         android:parentActivityName=".RestaurantDetail" />
 
-        <activity android:name=".RestaurantDetail"></activity>
+        <activity android:name=".RestaurantDetail" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -34,7 +33,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".MenuDetailRegister"></activity>
+        <activity android:name=".MenuDetailRegister" />
+
     </application>
 
 </manifest>

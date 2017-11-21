@@ -1,6 +1,7 @@
 package com.example.msi.newproject;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,13 +25,6 @@ public class MenuDetail extends AppCompatActivity {
         ImageView img = (ImageView)findViewById(R.id.imageView);
 
         Intent intent = getIntent(); // 보내온 Intent를 얻는다
-
-
-
-
-        menu.setText(intent.getStringExtra("menu"));
-        price.setText(intent.getStringExtra("price"));
-        img.setImageResource(intent.getIntExtra("img", 0));
 
 
 
