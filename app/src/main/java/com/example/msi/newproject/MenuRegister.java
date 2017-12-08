@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -46,8 +47,10 @@ private DBHelper mDbHelper;
         startActivity(intent);
             }
         });
-
-
+Intent intent2=getIntent();
+EditText address=(EditText) findViewById(R.id.address);
+String a=intent2.getStringExtra("markInfo");
+address.setText(a);
 
 
 
