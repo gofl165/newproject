@@ -17,6 +17,6 @@
         android:title="2km"/>
     <item
         android:id="@+id/km3"
-        android:title="2km"/>
+        android:title="3km"/>
     </group>
 </menu>

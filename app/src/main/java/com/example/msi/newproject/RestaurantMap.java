@@ -123,17 +123,102 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
 
                     }
                 }
-//                result.setText(buffer);
                 cursor.close();
                 return true;
             case R.id.km1:
+                //https://www.androidpub.com/978358 2,3km에서 1km 할때 마커 안지워지는거 해결하기 위해 구글맵.clear하는법 알아옴
+              mGoogleMap.clear();
+                //////////////////////
+                Cursor cursor2 = mDbHelper.getAllUsersByMethod();
+                item.setChecked(true);
+//                StringBuffer buffer = new StringBuffer();
+                while (cursor2.moveToNext()) {
+                    try {
+                        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+                        List<Address> addresses = geocoder.getFromLocationName( cursor2.getString(2),1);
+                        if (addresses.size() >0) {
+                            Address bestResult = (Address) addresses.get(0);
+                            LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+                           Location location1=new Location("L1");
+                           location1.setLatitude(bestResult.getLatitude());
+                           location1.setLongitude(bestResult.getLongitude());
+                           double a=location1.distanceTo(mCurrentLocation);
+                           if(a<1000) {
+                               mGoogleMap.addMarker(
+                                       new MarkerOptions().
+                                               position(location).
+                                               title(cursor2.getString(2)));
+                               mGoogleMap.setOnMarkerClickListener(this);
+                           }
+                        }
+                    } catch (IOException e) {
+                        Log.e(getClass().toString(),"Failed in using Geocoder.", e);
 
+                    }
+                }
+                cursor2.close();
                 return true;
             case R.id.km2:
+                mGoogleMap.clear();
+                Cursor cursor3 = mDbHelper.getAllUsersByMethod();
+                item.setChecked(true);
+//                StringBuffer buffer = new StringBuffer();
+                while (cursor3.moveToNext()) {
+                    try {
+                        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+                        List<Address> addresses = geocoder.getFromLocationName( cursor3.getString(2),1);
+                        if (addresses.size() >0) {
+                            Address bestResult = (Address) addresses.get(0);
+                            LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+                            Location location1=new Location("L1");
+                            location1.setLatitude(bestResult.getLatitude());
+                            location1.setLongitude(bestResult.getLongitude());
+                            double a=location1.distanceTo(mCurrentLocation);
+                            Log.i("distance", String.valueOf(a));
+                            if(a<2000) {
+                                mGoogleMap.addMarker(
+                                        new MarkerOptions().
+                                                position(location).
+                                                title(cursor3.getString(2)));
+                                mGoogleMap.setOnMarkerClickListener(this);
+                            }
+                        }
+                    } catch (IOException e) {
+                        Log.e(getClass().toString(),"Failed in using Geocoder.", e);
 
+                    }
+                }
+                cursor3.close();
                 return true;
             case R.id.km3:
+                Cursor cursor4 = mDbHelper.getAllUsersByMethod();
+                item.setChecked(true);
+//                StringBuffer buffer = new StringBuffer();
+                while (cursor4.moveToNext()) {
+                    try {
+                        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+                        List<Address> addresses = geocoder.getFromLocationName( cursor4.getString(2),1);
+                        if (addresses.size() >0) {
+                            Address bestResult = (Address) addresses.get(0);
+                            LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+                            Location location1=new Location("L1");
+                            location1.setLatitude(bestResult.getLatitude());
+                            location1.setLongitude(bestResult.getLongitude());
+                            double a=location1.distanceTo(mCurrentLocation);
+                            if(a<3000) {
+                                mGoogleMap.addMarker(
+                                        new MarkerOptions().
+                                                position(location).
+                                                title(cursor4.getString(2)));
+                                mGoogleMap.setOnMarkerClickListener(this);
+                            }
+                        }
+                    } catch (IOException e) {
+                        Log.e(getClass().toString(),"Failed in using Geocoder.", e);
 
+                    }
+                }
+                cursor4.close();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -231,6 +316,8 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
 //                        bestResult.getLatitude(),
 //                        bestResult.getLongitude()));
                 LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+                Log.i("aa", String.valueOf(bestResult.getLatitude()));
+                Log.i("aa", String.valueOf(bestResult.getLongitude()));
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,15));
                 mGoogleMap.addMarker(
                         new MarkerOptions().
@@ -306,7 +393,7 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
             Log.i("wwaa",cursor2.getString(2));
             String a=address.getText().toString().trim();
             String b=cursor2.getString(2).trim();
-           
+
             if(a.equals(b)){
                 cursor2.close();
                 return true;
