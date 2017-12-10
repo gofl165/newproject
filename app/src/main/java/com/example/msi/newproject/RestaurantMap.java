@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -48,7 +50,7 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
     DBHelper mDbHelper;
     //a마지막 geocoder 이용해서 input이용해서 이름에 매칭되는 addresses리스트 리턴 그중에서 첫번째get0을 가져와 bestReult가져오고 위도경도 얻어옴
 //그결과값 바탕으로 마커로 표시하고 그위치로 지도를 이동
-
+    Cursor cursor5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +70,7 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (txt.getText().equals("한성대입구역")) {
-//
-//                    Toast.makeText(getApplicationContext(),"한성대입구역을 선택하셨습니다", Toast.LENGTH_SHORT).show();
-//                }
+                mGoogleMap.clear();
                 getAddress();
 
 
@@ -94,15 +93,11 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.quick_action1:
-
+                mGoogleMap.clear();
                 Cursor cursor = mDbHelper.getAllUsersByMethod();
-
-//                StringBuffer buffer = new StringBuffer();
                 while (cursor.moveToNext()) {
-//                    buffer.append(cursor.getInt(0)+" \t");
-//                    buffer.append(cursor.getString(1)+" \t");
-//                    buffer.append(cursor.getString(2)+"\n");//주소
-                  //주소
+                    EditText address = (EditText) findViewById(R.id.edit_text);
+                    if(!(address.getText().toString().equals(cursor.getString(2))||address.getText().toString().equals(cursor.getString(1)))){
                     Log.i("adad",cursor.getString(2));
                     try {
                         Geocoder geocoder = new Geocoder(this, Locale.KOREA);
@@ -111,16 +106,40 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                             Address bestResult = (Address) addresses.get(0);
 
                             LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
-                            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,15));
+
                             mGoogleMap.addMarker(
                                     new MarkerOptions().
                                             position(location).
-                                            title(cursor.getString(2)));
+                                            title(cursor.getString(2)).icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))));
+                            //http://janggiraffe.tistory.com/entry/android-Google-map-v2-%EB%A7%88%EC%BB%A4-%EA%B0%84%EB%8B%A8%ED%95%98%EA%B2%8C-%EB%B0%94%EA%BE%B8%EA%B8%B0
+                            //마커모양 바꾸는거 참조
                             mGoogleMap.setOnMarkerClickListener(this);
                         }
                     } catch (IOException e) {
                         Log.e(getClass().toString(),"Failed in using Geocoder.", e);
 
+                    }
+                }
+                else{
+                        try {
+                            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+                            List<Address> addresses = geocoder.getFromLocationName( cursor.getString(2),1);
+                            if (addresses.size() >0) {
+                                Address bestResult = (Address) addresses.get(0);
+
+                                LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+
+                                mGoogleMap.addMarker(
+                                        new MarkerOptions().
+                                                position(location).
+                                                title(cursor.getString(2)));
+
+                                mGoogleMap.setOnMarkerClickListener(this);
+                            }
+                        } catch (IOException e) {
+                            Log.e(getClass().toString(),"Failed in using Geocoder.", e);
+
+                        }
                     }
                 }
                 cursor.close();
@@ -133,6 +152,8 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                 item.setChecked(true);
 //                StringBuffer buffer = new StringBuffer();
                 while (cursor2.moveToNext()) {
+                    EditText address = (EditText) findViewById(R.id.edit_text);
+                    if(!(address.getText().toString().equals(cursor2.getString(2))||address.getText().toString().equals(cursor2.getString(1)))){
                     try {
                         Geocoder geocoder = new Geocoder(this, Locale.KOREA);
                         List<Address> addresses = geocoder.getFromLocationName( cursor2.getString(2),1);
@@ -147,13 +168,35 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                                mGoogleMap.addMarker(
                                        new MarkerOptions().
                                                position(location).
-                                               title(cursor2.getString(2)));
+                                               title(cursor2.getString(2)).icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))));
                                mGoogleMap.setOnMarkerClickListener(this);
                            }
                         }
                     } catch (IOException e) {
                         Log.e(getClass().toString(),"Failed in using Geocoder.", e);
 
+                    }
+                }
+                    else{
+                        try {
+                            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+                            List<Address> addresses = geocoder.getFromLocationName( cursor2.getString(2),1);
+                            if (addresses.size() >0) {
+                                Address bestResult = (Address) addresses.get(0);
+
+                                LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+
+                                mGoogleMap.addMarker(
+                                        new MarkerOptions().
+                                                position(location).
+                                                title(cursor2.getString(2)));
+
+                                mGoogleMap.setOnMarkerClickListener(this);
+                            }
+                        } catch (IOException e) {
+                            Log.e(getClass().toString(),"Failed in using Geocoder.", e);
+
+                        }
                     }
                 }
                 cursor2.close();
@@ -164,6 +207,8 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                 item.setChecked(true);
 //                StringBuffer buffer = new StringBuffer();
                 while (cursor3.moveToNext()) {
+                    EditText address = (EditText) findViewById(R.id.edit_text);
+                    if(!(address.getText().toString().equals(cursor3.getString(2))||address.getText().toString().equals(cursor3.getString(1)))){
                     try {
                         Geocoder geocoder = new Geocoder(this, Locale.KOREA);
                         List<Address> addresses = geocoder.getFromLocationName( cursor3.getString(2),1);
@@ -179,22 +224,46 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                                 mGoogleMap.addMarker(
                                         new MarkerOptions().
                                                 position(location).
-                                                title(cursor3.getString(2)));
+                                                title(cursor3.getString(2)).icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))));
                                 mGoogleMap.setOnMarkerClickListener(this);
                             }
                         }
                     } catch (IOException e) {
                         Log.e(getClass().toString(),"Failed in using Geocoder.", e);
 
+                    }}
+                    else{
+                        try {
+                            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+                            List<Address> addresses = geocoder.getFromLocationName( cursor3.getString(2),1);
+                            if (addresses.size() >0) {
+                                Address bestResult = (Address) addresses.get(0);
+
+                                LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+
+                                mGoogleMap.addMarker(
+                                        new MarkerOptions().
+                                                position(location).
+                                                title(cursor3.getString(2)));
+
+                                mGoogleMap.setOnMarkerClickListener(this);
+                            }
+                        } catch (IOException e) {
+                            Log.e(getClass().toString(),"Failed in using Geocoder.", e);
+
+                        }
                     }
                 }
                 cursor3.close();
                 return true;
             case R.id.km3:
+                mGoogleMap.clear();
                 Cursor cursor4 = mDbHelper.getAllUsersByMethod();
                 item.setChecked(true);
 //                StringBuffer buffer = new StringBuffer();
                 while (cursor4.moveToNext()) {
+                    EditText address = (EditText) findViewById(R.id.edit_text);
+                    if(!(address.getText().toString().equals(cursor4.getString(2))||address.getText().toString().equals(cursor4.getString(1)))){
                     try {
                         Geocoder geocoder = new Geocoder(this, Locale.KOREA);
                         List<Address> addresses = geocoder.getFromLocationName( cursor4.getString(2),1);
@@ -209,13 +278,35 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                                 mGoogleMap.addMarker(
                                         new MarkerOptions().
                                                 position(location).
-                                                title(cursor4.getString(2)));
+                                                title(cursor4.getString(2)).icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))));
                                 mGoogleMap.setOnMarkerClickListener(this);
                             }
                         }
                     } catch (IOException e) {
                         Log.e(getClass().toString(),"Failed in using Geocoder.", e);
 
+                    }
+                }
+                    else{
+                        try {
+                            Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+                            List<Address> addresses = geocoder.getFromLocationName( cursor4.getString(2),1);
+                            if (addresses.size() >0) {
+                                Address bestResult = (Address) addresses.get(0);
+
+                                LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
+
+                                mGoogleMap.addMarker(
+                                        new MarkerOptions().
+                                                position(location).
+                                                title(cursor4.getString(2)));
+
+                                mGoogleMap.setOnMarkerClickListener(this);
+                            }
+                        } catch (IOException e) {
+                            Log.e(getClass().toString(),"Failed in using Geocoder.", e);
+
+                        }
                     }
                 }
                 cursor4.close();
@@ -304,17 +395,55 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
     }
     //******************************************주소얻기******************************
     private void getAddress() {
-//        addressTextView = (TextView) findViewById(R.id.result);
+
         EditText address = (EditText) findViewById(R.id.edit_text);
         try {
             Geocoder geocoder = new Geocoder(this, Locale.KOREA);
             List<Address> addresses = geocoder.getFromLocationName(address.getText().toString(),1);
+            Cursor cursor6=mDbHelper.getAllUsersByMethod();
+            while (cursor6.moveToNext()){
+                if(address.getText().toString().equals(cursor6.getString(1))){
+                    Log.i("same","good");
+                    addresses= geocoder.getFromLocationName(cursor6.getString(2),1);
+                }
+            }
+            cursor6.close();
             if (addresses.size() >0) {
-                Address bestResult = (Address) addresses.get(0);
+//          ------------구분--------------
+                        cursor5 = mDbHelper.getAllUsersByMethod();
+                while (cursor5.moveToNext()) {
+                    Log.i("adad",cursor5.getString(2));
+                    try {
+                        if(!(address.getText().toString().equals(cursor5.getString(2))||address.getText().toString().equals(cursor5.getString(1)))) {
+                            Geocoder geocoder2 = new Geocoder(this, Locale.KOREA);
+                            List<Address> addresses2 = geocoder2.getFromLocationName(cursor5.getString(2), 1);
+                            if (addresses2.size() > 0) {
 
-//                addressTextView.setText(String.format("[ %s , %s ]",
-//                        bestResult.getLatitude(),
-//                        bestResult.getLongitude()));
+                                Address bestResult2 = (Address) addresses2.get(0);
+
+                                LatLng location = new LatLng(bestResult2.getLatitude(), bestResult2.getLongitude());
+
+                                mGoogleMap.addMarker(
+                                        new MarkerOptions().
+                                                position(location).
+                                                title(cursor5.getString(2)).icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))));
+
+                                mGoogleMap.setOnMarkerClickListener(this);
+                            }
+                        }
+//                        else{
+//                            Log.i("same","good");
+//                            addresses=geocoder.getFromLocationName(cursor5.getString(2),1);
+//                        }
+                    } catch (IOException e) {
+                        Log.e(getClass().toString(),"Failed in using Geocoder.", e);
+
+                    }
+                }
+                cursor5.close();
+//           -----------------------------
+
+                Address bestResult = (Address) addresses.get(0);
                 LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
                 Log.i("aa", String.valueOf(bestResult.getLatitude()));
                 Log.i("aa", String.valueOf(bestResult.getLongitude()));
@@ -391,10 +520,11 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
         while (cursor2.moveToNext()) {
             Log.i("wwww",address.getText().toString());
             Log.i("wwaa",cursor2.getString(2));
+            Log.i("name",cursor2.getString(1));
             String a=address.getText().toString().trim();
             String b=cursor2.getString(2).trim();
-
-            if(a.equals(b)){
+            String c=cursor2.getString(1);
+            if(a.equals(b)||a.equals(c)){
                 cursor2.close();
                 return true;
             }
