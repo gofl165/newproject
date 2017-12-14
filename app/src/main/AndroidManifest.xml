@@ -15,6 +15,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyARURfGQDxBImzPSB8gYulTW7VTPC_6HZk" />
+
+
+
         <activity android:name=".RestaurantMap">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
