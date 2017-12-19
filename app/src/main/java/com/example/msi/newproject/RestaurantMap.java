@@ -48,6 +48,7 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
     GoogleMap mGoogleMap;
 //    TextView addressTextView;
     DBHelper mDbHelper;
+    int pass=4;
     //a마지막 geocoder 이용해서 input이용해서 이름에 매칭되는 addresses리스트 리턴 그중에서 첫번째get0을 가져와 bestReult가져오고 위도경도 얻어옴
 //그결과값 바탕으로 마커로 표시하고 그위치로 지도를 이동
     Cursor cursor5;
@@ -362,10 +363,10 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                 Log.i("ddd","fonud");
                 if (location != null) {
                     mCurrentLocation = location;
-                    Toast.makeText(getApplicationContext(),
-                            "위도"+mCurrentLocation.getLatitude(),
-                            Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText(getApplicationContext(),
+//                            "위도"+mCurrentLocation.getLatitude(),
+//                            Toast.LENGTH_SHORT)
+//                            .show();
                     //  updateUI();
                     LatLng newLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
                     if (mGoogleMap != null)
@@ -473,7 +474,8 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
         if (okok()) {
-            Intent intent3 = new Intent(getApplicationContext(), MenuRegister.class);
+            Intent intent3 = new Intent(getApplicationContext(), RestaurantDetail.class);
+            intent3.putExtra("int",pass);
             startActivity(intent3);
             return  true;
         } else {
@@ -525,6 +527,7 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
             String b=cursor2.getString(2).trim();
             String c=cursor2.getString(1);
             if(a.equals(b)||a.equals(c)){
+               pass=pass+1;
                 cursor2.close();
                 return true;
             }
