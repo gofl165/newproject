@@ -107,13 +107,14 @@ public class RestaurantMap extends AppCompatActivity implements OnMapReadyCallba
                             Address bestResult = (Address) addresses.get(0);
 
                             LatLng location = new LatLng(bestResult.getLatitude(),bestResult.getLongitude());
-
+                            LatLng current = new LatLng(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
+                            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current,15));
                             mGoogleMap.addMarker(
                                     new MarkerOptions().
                                             position(location).
                                             title(cursor.getString(2)).icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))));
                             //http://janggiraffe.tistory.com/entry/android-Google-map-v2-%EB%A7%88%EC%BB%A4-%EA%B0%84%EB%8B%A8%ED%95%98%EA%B2%8C-%EB%B0%94%EA%BE%B8%EA%B8%B0
-                            //마커모양 바꾸는거 참조
+                            //마커모양 바꾸는거 강의자료와 함께 참조
                             mGoogleMap.setOnMarkerClickListener(this);
                         }
                     } catch (IOException e) {

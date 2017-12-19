@@ -9,11 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-
-
 public class Animate extends AppCompatActivity {
     ImageView mCountDown ;
-    ImageView img;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +23,13 @@ public class Animate extends AppCompatActivity {
     }
 protected void onResume(){
         super.onResume();
-    startCountDownFrameAnimation();
-    startRocketObjectPropertyAnimation();
+    startAnimation();
+    startPropertyAnimation();
 
 }
 
 
-    private void startCountDownFrameAnimation() {
+    private void startAnimation() {
 /*1*/    mCountDown.setBackgroundResource(R.drawable.frame_anim);
 
 /*2*/    AnimationDrawable countdownAnim =
@@ -39,7 +37,7 @@ protected void onResume(){
 /*3*/    countdownAnim.start();
     }
 
-    private void startRocketObjectPropertyAnimation() {
+    private void startPropertyAnimation() {
 
         ObjectAnimator alpha = ObjectAnimator.ofFloat(mCountDown, "alpha", 1, 0);
 
